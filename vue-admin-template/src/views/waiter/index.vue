@@ -1,8 +1,11 @@
 <template>
   <div class="app-container">
+    <h3>员工管理</h3>
     <el-table
     :data="list"
+    element-loading-text="loading"
     border
+    fit
     style="width: 100%">
     <el-table-column
       prop="id"
@@ -19,35 +22,31 @@
       label="地址">
     </el-table-column>
   </el-table>
-  <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+  <!-- <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" /> -->
 
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 // import { getList } from '@/api/table'
 
 export default {
   
   data() {
     return {
-      list: null,
+      
       listLoading: false
     }
+  },
+  computed: {
+    ...mapState('waiters', ['list'])
   },
   created() {
     this.fetchData()
   },
   methods: {
-    // fetchData() {
-      // this.listLoading = true
-      // getList().then(response => {
-      //   this.list = response.data.items
-      //   this.listLoading = false
-      // })
-    // }
-    ...mapActions('waiters',['fetchData'])
+    ...mapActions('waiters', ['fetchData'])
   }
 }
 </script>

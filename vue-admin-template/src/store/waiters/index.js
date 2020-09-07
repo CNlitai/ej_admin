@@ -8,7 +8,7 @@ const waiters = {
     namespaced: true,
     // 命名空间我们的模块在使用数据或者方法是，可以使用子模块的名称
     state:{
-      waiters:[],
+        waiters:[],
         list: null,//保存返回的数据
         total: 0,//
         listQuery: {
@@ -17,23 +17,20 @@ const waiters = {
       }
     },
     mutations:{
-        SET_WAITER(state, waiters) {
-            state.waiters = waiters
-          }
+        SETLIST(state, data) {
+          state.list = data;
+        }
     },
     actions:{
         fetchData(context) {
-        //     get('/waiter/findAll').then((msg)=>{
-        //         context.commit('SET_WAITER',msg.data)
-        //     })
-        post('/waiter/index',{ 
-          page: context.state.listQuery.page,
-          pageSize: context.state.listQuery.limit,
-        }).then((msg)=>{
-          console.log(msg)
-        }).catch((err)=>{
-          console.log(err)
-        })
+          get('/waiter/findAll').then((msg) => {
+            // console.log(msg);
+            // context.state.list = msg.data;
+            context.commit('SETLIST', msg.data);
+          }).catch((err) =>{
+            console.log(err);
+          })
+
     }
   }
 }

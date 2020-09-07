@@ -62,10 +62,10 @@ export const constantRoutes = [
     meta: { title: '员工管理', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'table',
-        name: 'Table',
+        path: '/index',
+        name: 'waiter',
         component: () => import('@/views/waiter/index'),
-        meta: { title: 'Table', icon: 'table' }
+        meta: { title: '员工管理', icon: 'form' }
       },
       {
         path: 'tree',
