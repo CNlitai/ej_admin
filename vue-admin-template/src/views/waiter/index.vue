@@ -23,10 +23,22 @@
       label="性别">
     </el-table-column>
     <el-table-column
+      prop="province"
+      label="省份">
+    </el-table-column>
+    <el-table-column
+      prop="city"
+      label="城市">
+    </el-table-column>
+    <el-table-column
+      prop="money"
+      label="余额">
+    </el-table-column>
+    <el-table-column
       prop="status"
       label="状态">
     </el-table-column>
-    <el-table-column label="操作">
+    <el-table-column label="操作" width="145px">
       <template slot-scope="scope">
         <el-button
           size="mini"
@@ -48,6 +60,10 @@
     :before-close="handleClose"
     >
     <p>用户名：<el-input v-model="waiter_info.username" placeholder="请输入内容"></el-input></p>
+    <p>性别：<el-input v-model="waiter_info.gender" placeholder="请输入内容"></el-input></p>
+    <p>省份：<el-input v-model="waiter_info.province" placeholder="请输入内容"></el-input></p>
+    <p>城市：<el-input v-model="waiter_info.city" placeholder="请输入内容"></el-input></p>
+    <p>余额：<el-input v-model="waiter_info.money" placeholder="请输入内容"></el-input></p>
     <p v-if="waiter_info.status == '启用'">状态：
       <el-radio v-model="waiter_info.status" label="启用" checked="1">启用</el-radio>
       <el-radio v-model="waiter_info.status" label="禁用">禁用</el-radio>
