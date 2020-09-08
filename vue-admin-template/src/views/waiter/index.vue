@@ -18,16 +18,33 @@
       width="180">
     </el-table-column>
     <el-table-column
-      prop="address"
-      label="地址">
+      prop="gender"
+      label="性别">
+    </el-table-column>
+    <el-table-column
+      prop="status"
+      label="状态">
+    </el-table-column>
+    <el-table-column label="操作">
+      <template slot-scope="scope">
+        <el-button
+          size="mini"
+          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+        <el-button
+          size="mini"
+          type="danger"
+          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+      </template>
     </el-table-column>
   </el-table>
-  <!-- <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" /> -->
+  <!-- 分页 -->
+  <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="fetchData" />
 
   </div>
 </template>
 
 <script>
+import Pagination from '@/components/Pagination'
 import { mapActions, mapState } from 'vuex'
 // import { getList } from '@/api/table'
 
@@ -39,8 +56,10 @@ export default {
       listLoading: false
     }
   },
+  components: { Pagination },
+  
   computed: {
-    ...mapState('waiters', ['list'])
+    ...mapState('waiters', ['list', 'total', 'listQuery'])
   },
   created() {
     this.fetchData()

@@ -23,14 +23,24 @@ const waiters = {
     },
     actions:{
         fetchData(context) {
-          get('/waiter/findAll').then((msg) => {
-            // console.log(msg);
-            // context.state.list = msg.data;
-            context.commit('SETLIST', msg.data);
+          // get('/waiter/findAll').then((msg) => {
+          //   // console.log(msg);
+          //   // context.state.list = msg.data;
+          //   context.commit('SETLIST', msg.data);
+          // }).catch((err) =>{
+          //   console.log(err);
+          // })
+          post('/waiter/query',{
+            page: context.state.listQuery.page,
+            pageSize: context.state.listQuery.limit
+          }).then((msg) => {
+              // console.log(msg);
+              // context.state.list = msg.data;
+              context.state.total = msg.data.total;
+              context.commit('SETLIST', msg.data.list);
           }).catch((err) =>{
-            console.log(err);
-          })
-
+              console.log(err);
+            })
     }
   }
 }
