@@ -14,12 +14,18 @@ const waiters = {
         listQuery: {
           page: 1,//当前页码
           limit: 5,//一页显示几条
-      }
+      },
+      waiter_info: {
+        //保存当前编辑的员工
+
+      },
+      dialogVisible: false //控制mt框是否显示
     },
     mutations:{
         SETLIST(state, data) {
           state.list = data;
-        }
+        },
+        
     },
     actions:{
         fetchData(context) {
@@ -41,7 +47,36 @@ const waiters = {
           }).catch((err) =>{
               console.log(err);
             })
+        },
+        handleEdit(context, id){
+          get('/waiter/findWaiterById?id='+id).then((msg) => {
+            context.state.waiter_info = msg.data;
+            context.state.dialogVisible = true;
+          }).catch((err) =>{
+            console.log(err);
+          })
+          // console.log(id)
+      },
+      dialogClose(context) {
+        post('/waiter/saveOrUpdate', context.state.waiter_info).then((msg) => {
+          // this.$notify({
+          //   title: '保存',
+          //   message: '保存成功',
+          //   type: 'success',
+          //   duration: 2000
+          // })
+          context.dispatch('fetchData')
+        context.state.dialogVisible = false;
+
+        }).catch((err) =>{
+          console.log(err)
+        })
+      },
+      handleAdd(context) {
+        context.state.waiter_info = {}
+        context.state.dialogVisible = true;
+
+      }
     }
-  }
 }
 export default waiters
