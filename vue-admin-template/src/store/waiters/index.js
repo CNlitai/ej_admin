@@ -48,7 +48,23 @@ const waiters = {
               console.log(err);
             })
         },
-        handleEdit(context, id){
+        handleDelete(context,id){//根据id删除
+          if(confirm('确定删除吗？')){
+          get('/waiter/deleteById?id='+id).then((msg)=>{
+              ElementUI.Notification({
+                  title: '删除',
+                  message: '删除成功',
+                  type: 'success',
+                  duration: 2000
+              })
+              context.dispatch('fetchData')
+              //删除成功后不会自动刷新界面
+           }).catch((err)=>{
+               console.log(err)
+           })
+          }
+      },
+        handleEdit(context, id){//修改
           get('/waiter/findWaiterById?id='+id).then((msg) => {
             context.state.waiter_info = msg.data;
             context.state.dialogVisible = true;

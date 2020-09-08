@@ -46,7 +46,7 @@
         <el-button
           size="mini"
           type="danger"
-          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          @click="handleDelete(scope.row.id)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -102,7 +102,7 @@ export default {
     this.fetchData()
   },
   methods: {
-    ...mapActions('waiters', ['fetchData', 'handleEdit', 'dialogClose', 'handleAdd']),
+    ...mapActions('waiters', ['fetchData', 'handleEdit', 'handleDelete', 'dialogClose', 'handleAdd']),
     handleClose() {
       this.$store.state.waiters.dialogVisible = false
     }
